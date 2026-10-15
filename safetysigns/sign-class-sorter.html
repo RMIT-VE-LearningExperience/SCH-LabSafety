@@ -1,3 +1,11 @@
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RCXP7N17RY"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-RCXP7N17RY');
+</script>
 <title>Sign Class Sorter</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
@@ -326,6 +334,7 @@ function attempt(signId, clsId){
 }
 
 function finishRound1(){
+  if (window.gtag) gtag('event', 'round1_complete', { score: state.r1, max_score: R1_N });
   const done = el('section', {class:'panel done', 'aria-label':'Round 1 complete'});
   done.innerHTML = '<h2>Round 1 done</h2><p>' + state.r1 + ' of ' + R1_N + ' signs went to the right group on the first try. Now, do you know what each one means?</p>';
   const act = el('div', {class:'actions'});
@@ -397,6 +406,7 @@ function renderResults(){
   const total = state.r1 + state.r2, max = R1_N + R2_N;
   const pct = Math.round(100 * total / max);
   setHead('Finished · Here is how you went', pct + '%', 'overall');
+  if (window.gtag) gtag('event', 'activity_complete', { round1_score: state.r1, round2_score: state.r2, percent: pct });
   stage.innerHTML = '';
   const r = el('section', {class:'panel result', 'aria-label':'Results'});
   const verdict = pct >= 85 ? 'You can read the sign system.' : pct >= 60 ? 'Good start. Play again to lock it in.' : 'Worth another go. Use the shape and colour first, then the symbol.';
